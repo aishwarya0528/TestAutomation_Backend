@@ -1,0 +1,78 @@
+name: Full Test CI
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the code from the repository
+    - uses: actions/checkout@v4
+
+    # ------------------------
+    # Frontend (React) Testing
+    # ------------------------
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        
+    - name: Install Frontend dependencies
+      run: |
+        cd frontend
+        npm install
+        npm install --save-dev jest @babel/preset-env @babel/preset-react @testing-library/react @testing-library/jest-dom
+
+    - name: Update testcase.js location
+      run: |
+        if [ ! -f frontend/testcase.js ] && [ -f testcase.js ]; then
+          mv testcase.js frontend/
+        fi
+
+    - name: Display testcase.js content
+      run: |
+        cd frontend
+        cat testcase.js
+
+    - name: Create Jest config
+      run: |
+        cd frontend
+        echo "module.exports = {
+          testEnvironment: 'jsdom',
+          setupFilesAfterEnv: ['@testing-library/jest-dom'],
+          transform: {
+            '^.+\\\\.(js|jsx)$': 'babel-jest'
+          },
+          testMatch: ['**/testcase.js'],
+          moduleDirectories: ['node_modules', 'src', '.'],
+          rootDir: '.'
+        };" > jest.config.js
+
+    - name: Run frontend tests
+      run: |
+        cd frontend
+        npx jest --config=jest.config.js
+
+    # ------------------------
+    # Backend (Java) Testing
+    # ------------------------
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'  # Use the Temurin distribution of OpenJDK
+        java-version: '17'       # Set the Java version (you can use a different version if needed)
+
+    - name: Install Maven
+      run: sudo apt-get install maven -y
+
+    - name: Build Backend with Maven
+      run: |
+        cd backend
+        mvn clean install
+
+    - name: Run Backend Tests
+      run: |
+        cd backend
+        mvn test
+
