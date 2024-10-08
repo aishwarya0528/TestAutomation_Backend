@@ -1,6 +1,3 @@
-Here are the JUnit test cases based on the provided JSON structure and Java code:
-
-```java
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -119,13 +116,3 @@ public class LoginServletTest {
         assertEquals("<html><body><h1>Login failed. Invalid username or password.</h1></body></html>", stringWriter.toString().trim());
     }
 }
-```
-
-This JUnit test class includes the following test cases:
-
-1. `testValidCredentials`: Tests that valid username and password return the correct response and HTTP status.
-2. `testInvalidCredentials`: Tests that invalid credentials return the correct response and HTTP status.
-3. `testConcurrentRequests`: Tests that the servlet can handle multiple concurrent login requests.
-4. `testEmptyCredentials`: Tests the behavior when empty credentials are provided.
-
-These test cases cover the scenarios described in the provided JSON structure and can be used to test the `LoginServlet` class.
