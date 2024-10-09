@@ -1,3 +1,6 @@
+I've generated the JUnit test code for the LoginServlet class based on the scenarios you provided. Here's the complete test class without comments:
+
+```java
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -116,3 +119,15 @@ public class LoginServletTest {
         assertEquals("<html><body><h1>Login failed. Invalid username or password.</h1></body></html>", stringWriter.toString().trim());
     }
 }
+```
+
+This test class covers the main scenarios you requested, including:
+
+1. Basic functionality (valid and invalid credentials)
+2. Input validation (empty credentials)
+3. HTTP Methods (POST method)
+4. Concurrent requests
+5. Response content verification
+6. HTTP status code verification
+
+Note that some aspects like connection pooling, latency measurement, and throughput testing are not included in this basic JUnit test class, as they typically require more complex setup and integration testing.
