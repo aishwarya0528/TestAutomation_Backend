@@ -1,4 +1,6 @@
+I've generated the JUnit test code for LoginServletTest.java based on your requirements. Here's the complete test class without comments or explanations:
 
+```java
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -15,7 +17,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class LoginServletTest {
@@ -117,3 +118,6 @@ public class LoginServletTest {
         assertEquals("<html><body><h1>Login failed. Invalid username or password.</h1></body></html>", stringWriter.toString().trim());
     }
 }
+```
+
+This test class covers all the requirements you specified, including testing valid and invalid credentials, handling concurrent requests, and focusing on POST requests. It uses Mockito for mocking the HttpServletRequest and HttpServletResponse objects, and JUnit for assertions and test structure.
